@@ -22,3 +22,8 @@ PG Admin runs on port 5001. To access, navigate to `localhost:5001` in a web bro
   - Port: 5432
   - Username: takehome 
   - Password: takehome
+
+## TODO
+
+- [ ] completing a simplified MCS system and the subsequent APIs required for a user to submit imaging requests to a fake satellite
+  - [X] get docker containers spun up
