@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mcs:
+    image: "mcs"
+    build: 
+      context: ./mcs
+  pg:
+    image: postgres:14.3-alpine
+    env_file: .env
+    environment: 
+        POSTGRES_USER: ${PG_USER}
+        POSTGRES_PASSWORD: ${PG_PASS}
+        POSTGRES_DB: ${PG_NAME}
+        POSTGRES_PORT: ${PG_PORT}
+    ports:
+      - "${PG_PORT}:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment: 
+        PGADMIN_DEFAULT_EMAIL: ${PG_USER}@takehome.com
+        PGADMIN_DEFAULT_PASSWORD: ${PG_PASS}
+    ports: 
+        - "5001:80"
