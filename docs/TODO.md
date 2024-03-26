@@ -2,6 +2,8 @@
 
 - [ ] *section*    description
 
+- [ ] *general*    figure out to store images
+- [ ] *general*    figure out to return images with api
 - [ ] *api*        ensure compatibility with postman
 - [ ] *api*        expose necessary ports, use service-name not IP
 - [ ] *api-feat*   add tracked satellite to db
