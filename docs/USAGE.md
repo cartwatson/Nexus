@@ -1,5 +1,23 @@
 # Usage
 
+## Steps
+
+1. run `docker compose up -d --build`
+1. Connect to PG Admin
+  - as seen below
+1. Create pg server
+  - Name: starfire
+  - Connections tab
+    - Hostname: pg
+    - Port 5432
+    - Username: takehome
+    - Password: takehome
+1. Init `takehome` db
+  - `docker exec -it turion-take-home-pg-1 bash`
+  - `./app/init.sh`
+  - `exit`
+1.
+
 ## Development
 You can start the compose project with the below docker compose command. I have found that using bind mounts help me with local development but is not necessary (you can google this).
 ```
