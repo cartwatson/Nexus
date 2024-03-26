@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import psycopg2
 
 api = Flask(__name__)
 
@@ -29,4 +30,18 @@ def get_images_from_droid():
 
 
 if __name__ == "__main__":
+    # init psycopg2
+    conn = psycopg2.connect(
+        host="pg",
+        dbname="takehome",
+        user="takehome",
+        password="takehome",
+        port="5432",
+    )
+
+    cur = conn.cursor()
+
     api.run(debug=True)
+
+    cur.close()
+    conn.close()
