@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install
 
 COPY . .
 
+RUN pip install -r requirements.txt
+
 CMD ["python", "-u", "satellite.py"]
-# This commented out ENTRYPOINT will start the container but not
-# the python program. I have found this useful for debugging
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
