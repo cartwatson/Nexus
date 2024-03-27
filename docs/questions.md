@@ -8,5 +8,6 @@
 ## Notes about future work
 
 - DB
+  - ability to expand to have multiple "DROID"s
   - init tables script, weird approach, would spend more time learning the "right way"
   - not 100% certain of my use of HTTP codes; eg: 204
