@@ -2,9 +2,10 @@
 
 - [ ] *section*    description
 
+- [X] *api-bug*    api tries to start before postgresql is initialized
 - [ ] *api*        ensure compatibility with postman
-- [ ] *api*        expose necessary ports, use service-name not IP
-- [ ] *api-feat*   add tracked satellite to db
+- [X] *api*        expose necessary ports, use service-name not IP
+- [X] *api-feat*   add tracked satellite to db
 - [ ] *api-feat*   get images of tracked satellite take by DROID
 - [ ] *api-feat*   request image of a tracked satellite, store these requests
 - [ ] *database*   create/init necessary tables
