@@ -44,7 +44,7 @@ def main():
         img bytea,
         CONSTRAINT fk_satellites
             FOREIGN KEY (id_sat)
-            REFERENCES satellites(id)
+            REFERENCES satellites(id),
         CONSTRAINT fk_droids
             FOREIGN KEY (taken_by)
             REFERENCES droids(id)

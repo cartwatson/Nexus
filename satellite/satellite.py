@@ -13,7 +13,7 @@ def take_image(target_sat):
 
 @app.route("/transmit_image/<target_sat>")
 def transmit_image(target_sat):
-    """transmit image of target sat to mcs """
+    """transmit image of target sat to mcs"""
     pass
 
 

@@ -25,8 +25,8 @@ def request_image_of_satellite(target_sat):
     """request image of a tracked satellite"""
 
     cur.execute(
-        f"""INSERT INTO requests (target_sat, time, fulfilled) VALUES
-        ('{target_sat}', '{datetime.now()}', 'FALSE')
+        f"""INSERT INTO requests (target_sat, time, fulfilled, pending) VALUES
+        ('{target_sat}', '{datetime.now()}', 'FALSE', 'FALSE')
         """
     )
 
@@ -38,7 +38,7 @@ def get_image(satellite_id, taken_by=None):
 
     request = f"SELECT img FROM images WHERE id_sat='{satellite_id}'"
     if taken_by:
-        request += f"AND '{taken_by}'"
+        request += f"AND taken_by='{taken_by}'"
 
     # Make request for image
     cur.execute(request)
@@ -48,9 +48,9 @@ def get_image(satellite_id, taken_by=None):
 
     # handle case where no images are returned
     if not img_returned:
-        # NOTE: could be that there are just no pictures taken by droid
+        # TODO: tell user if there are pending requests for this object
         # NOTE: may be more appropriate for this to be 204 code
-        return jsonify({"ERROR": f"{satellite_id} exists but no images found"}), 200
+        return jsonify({"ERROR": f"{satellite_id} is tracked but no images found"}), 200
     # TODO: do something with results as they'll be raw image data
     return jsonify({"results": results}), 200
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
             print("connection established")
             connected = True
         except:  # noqa: E722
-            print("connection failed: attempting reconnect in 1sec")
+            print("connection to db failed: attempting reconnect in 1sec")
             time.sleep(1)
 
     cur = conn.cursor()
