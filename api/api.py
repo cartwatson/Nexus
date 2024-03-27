@@ -1,32 +1,49 @@
+import os
 from flask import Flask, jsonify
 import psycopg2
 
-api = Flask(__name__)
+app = Flask(__name__)
 
 
-@api.route("/add-satellite/satellite_id")
+@app.route("/add-satellite/<satellite_id>")
 def add_tracked_satellite(satellite_id):
     """Add tracked satellite to database"""
-    # make post request to db container
-    pass
+
+    cur.execute(
+        f"""INSERT INTO satellites (user_id) VALUES
+        ('{satellite_id}')
+        """
+    )
+
+    return jsonify({"added-id": satellite_id}), 200
 
 
-@api.route("/get-image-from-satellite/<satellite_id>")
+@app.route("/get-image-from-satellite/<satellite_id>")
 def get_image_from_satellite(satellite_id):
     """request image of a tracked satellite, store these requests"""
-    # CLARIFICATION: does this need a specific image id as well???
-    # make get request from db container
-    # return data as json object, status code # eg: jsonify(python_dict), 200
-    return jsonify({"satellite_id": satellite_id}), 200  # DEBUG: REMOVE BEFORE PROD
-    pass
+
+    cur.execute(
+        f"""SELECT img FROM images
+        WHERE id_sat='{satellite_id}'
+        """
+    )
+    results = cur.fetchall()
+
+    if not results:
+        return jsonify({"ERROR": f"No images found for {satellite_id}"}), 204
+
+    return jsonify({results})
 
 
-@api.route("/get-droid-images")
+@app.route("/get-droid-images")
 def get_images_from_droid():
     """get images of tracked satellite take by DROID"""
-    # make get request to db container
-    # return list of images
-    pass
+    cur.execute("SELECT img FROM images WHERE id_sat='DROID'")
+    results = cur.fetchall()
+    if not results:
+        return jsonify({"ERROR": "No images found for DROID"}), 204
+
+    return jsonify({results})
 
 
 if __name__ == "__main__":
@@ -40,8 +57,10 @@ if __name__ == "__main__":
     )
 
     cur = conn.cursor()
+    conn.autocommit = True
 
-    api.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
 
     cur.close()
     conn.close()
