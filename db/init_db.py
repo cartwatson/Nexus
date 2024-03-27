@@ -20,12 +20,26 @@ def main():
         """
     )
 
-    # create second table for images
+    # create table for images
     cur.execute(
         """CREATE TABLE IF NOT EXISTS images (
         id INT PRIMARY KEY,
         id_sat VARCHAR(255),
         img bytea,
+        CONSTRAINT fk
+            FOREIGN KEY (id_sat)
+            REFERENCES satellites(user_id)
+        );
+        """
+    )
+
+    # create table for image-requests
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS requests (
+        time TIMESTAMP PRIMARY KEY,
+        id_sat VARCHAR(255),
+        request TEXT,
+        img_returned BOOLEAN,
         CONSTRAINT fk
             FOREIGN KEY (id_sat)
             REFERENCES satellites(user_id)
