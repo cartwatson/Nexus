@@ -4,13 +4,12 @@ import psycopg2
 
 # NOTES:
 # request looks like
-# datetime                                       target_sat, fulfillled, pending
+# datetime                                      target_sat, fulfillled, pending
 # (datetime.datetime(2024, 3, 27, 7, 1, 44, 308839), 'object0', False, False)
 # upload images to psql
 # https://www.postgresql.org/docs/7.4/jdbc-binary-data.html
 
 
-# When the MCS is able to communicate with the satellite, send imaging requests to the satellite that the MCS finds in the database.
 def send_image_requests(cur):
     """send requests to satellite for unfulfilled requests"""
 
@@ -23,16 +22,15 @@ def send_image_requests(cur):
     if not pending_requests:
         return
 
-    print("REQUESTING...") # DEBUG: REMOVE BEFORE PROD
+    print("REQUESTING...")  # DEBUG: REMOVE BEFORE PROD
     for request in results:
-        print(request) # DEBUG: REMOVE BEFORE PROD
+        print(request)  # DEBUG: REMOVE BEFORE PROD
         # send request to droid to take image of target satellite
         # mark request as pending
         cur.execute(f"UPDATE requests SET pending='TRUE' WHERE time='{request[0]}'")
     return
 
 
-# Periodically send a “download all images” command to the satellite to get all images stored on the satellite and insert into the database.
 def download_all_images(cur):
     """download all images from satellite to db"""
 
@@ -45,9 +43,9 @@ def download_all_images(cur):
     if not unfulfilled_requests:
         return
 
-    print("DOWNLOADING...") # DEBUG: REMOVE BEFORE PROD
+    print("DOWNLOADING...")  # DEBUG: REMOVE BEFORE PROD
     for request in results:
-        print(request) # DEBUG: REMOVE BEFORE PROD
+        print(request)  # DEBUG: REMOVE BEFORE PROD
         # query droid for image based on request
         # if image exists, update request
         cur.execute(f"UPDATE requests SET fulfilled='TRUE' WHERE time='{request[0]}'")
