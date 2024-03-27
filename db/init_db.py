@@ -42,10 +42,10 @@ def main():
         taken_by VARCHAR(255),
         id_sat VARCHAR(255),
         img bytea,
-        CONSTRAINT fk
+        CONSTRAINT fk_satellites
             FOREIGN KEY (id_sat)
             REFERENCES satellites(id)
-        CONSTRAINT fk
+        CONSTRAINT fk_droids
             FOREIGN KEY (taken_by)
             REFERENCES droids(id)
         );
@@ -57,8 +57,9 @@ def main():
         """CREATE TABLE IF NOT EXISTS requests (
         time TIMESTAMP PRIMARY KEY,
         target_sat VARCHAR(255),
+        pending BOOLEAN,
         fulfilled BOOLEAN,
-        CONSTRAINT fk
+        CONSTRAINT fk_satellites
             FOREIGN KEY (target_sat)
             REFERENCES satellites(id)
         );
