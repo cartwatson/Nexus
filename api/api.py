@@ -12,46 +12,53 @@ def add_tracked_satellite(satellite_id):
     """Add tracked satellite to database"""
 
     cur.execute(
-        f"""INSERT INTO satellites (user_id) VALUES
+        f"""INSERT INTO satellites (id) VALUES
         ('{satellite_id}')
         """
     )
 
-    return jsonify({"added-id": satellite_id}), 200
+    return jsonify({"SUCCESS": f"Now tracking: {satellite_id}"}), 200
 
 
-@app.route("/get-image-from-satellite/<satellite_id>")
-def get_image_from_satellite(satellite_id):
-    """request image of a tracked satellite, store these requests"""
+@app.route("/request-image-of-satellite/<target_sat>")
+def request_image_of_satellite(target_sat):
+    """request image of a tracked satellite"""
+
+    cur.execute(
+        f"""INSERT INTO requests (target_sat, time, fulfilled) VALUES
+        ('{target_sat}', '{datetime.now()}', 'FALSE')
+        """
+    )
+
+    return jsonify({"SUCCESS": f"Request for image of {target_sat} submitted"}), 200
+
+
+def get_image(satellite_id, taken_by=None):
+    """get image of a specific satellite"""
 
     request = f"SELECT img FROM images WHERE id_sat='{satellite_id}'"
+    if taken_by:
+        request += f"AND '{taken_by}'"
 
     # Make request for image
     cur.execute(request)
     results = cur.fetchall()
 
-    success = len(results)
-    # Record request for image
-    cur.execute(
-        f"""INSERT INTO requests (id_sat, time, request, img_returned) VALUES
-        ('{satellite_id}', '{datetime.now()}', \
-        '{request.replace("'", "''")}', '{str(success).upper()}')
-        """
-    )
+    img_returned = len(results)
 
-    if not success:
-        # NOTE: possibility this should be a 204
+    # handle case where no images are returned
+    if not img_returned:
+        # NOTE: could be that there are just no pictures taken by droid
+        # NOTE: may be more appropriate for this to be 204 code
         return jsonify({"ERROR": f"{satellite_id} exists but no images found"}), 200
     # TODO: do something with results as they'll be raw image data
     return jsonify({"results": results}), 200
 
 
-@app.route("/get-droid-images")
-def get_images_from_droid():
-    """get images of tracked satellite take by DROID"""
-
-    # NOTE: if get_image_from_satellite later takes image_id, return all images
-    return get_image_from_satellite('DROID')
+@app.route("/get-images-from-droid/<satellite_id>")
+def get_images_from_droid(satellite_id):
+    """get images of a tracked satellite taken by DROID"""
+    return get_image(satellite_id, taken_by="DROID")
 
 
 if __name__ == "__main__":
