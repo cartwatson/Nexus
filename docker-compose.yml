@@ -5,11 +5,17 @@ services:
     image: "api"
     build:
       context: ./api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - pg
 
   satellite:
     image: "satellite"
     build:
       context: ./satellite
+    ports:
+      - "5000:5000"
 
   mcs:
     image: "mcs"
