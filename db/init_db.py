@@ -15,20 +15,39 @@ def main():
     # create table for satellites
     cur.execute(
         """CREATE TABLE IF NOT EXISTS satellites (
-        user_id VARCHAR(255) PRIMARY KEY
+        id VARCHAR(255) PRIMARY KEY
         );
+        """
+    )
+
+    # create table for droids
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS droids (
+        id VARCHAR(255) PRIMARY KEY
+        );
+        """
+    )
+
+    # init DROID satellite
+    cur.execute(
+        """INSERT INTO droids (id) VALUES
+        ('DROID')
         """
     )
 
     # create table for images
     cur.execute(
         """CREATE TABLE IF NOT EXISTS images (
-        id INT PRIMARY KEY,
+        time_taken TIMESTAMP PRIMARY KEY,
+        taken_by VARCHAR(255),
         id_sat VARCHAR(255),
         img bytea,
         CONSTRAINT fk
             FOREIGN KEY (id_sat)
-            REFERENCES satellites(user_id)
+            REFERENCES satellites(id)
+        CONSTRAINT fk
+            FOREIGN KEY (taken_by)
+            REFERENCES droids(id)
         );
         """
     )
@@ -37,20 +56,12 @@ def main():
     cur.execute(
         """CREATE TABLE IF NOT EXISTS requests (
         time TIMESTAMP PRIMARY KEY,
-        id_sat VARCHAR(255),
-        request TEXT,
-        img_returned BOOLEAN,
+        target_sat VARCHAR(255),
+        fulfilled BOOLEAN,
         CONSTRAINT fk
-            FOREIGN KEY (id_sat)
-            REFERENCES satellites(user_id)
+            FOREIGN KEY (target_sat)
+            REFERENCES satellites(id)
         );
-        """
-    )
-
-    # init DROID satellite
-    cur.execute(
-        """INSERT INTO satellites (user_id) VALUES
-        ('DROID')
         """
     )
 
