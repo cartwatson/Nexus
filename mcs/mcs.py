@@ -101,4 +101,13 @@ if __name__ == "__main__":
     cur = conn.cursor()
     conn.autocommit = True
 
+    db_init = False
+    while not db_init:
+        try:
+            cur.execute("SELECT * FROM images")
+            db_init = True
+        except:
+            print("db not initialized, waiting...")
+            time.sleep(3)
+
     main(cur)
