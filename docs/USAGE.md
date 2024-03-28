@@ -16,6 +16,14 @@
   - `docker exec -it turion-take-home-pg-1 bash`
   - `./app/init.sh`
   - `exit`
+1. Test the following endpoints for basic functionality
+  - ENDPOINTS
+    - API -- localhost:5000
+    - Sat -- localhost:5050
+  - http://localhost:5000/add-satellite/object0
+  - http://localhost:5000/request-image-of-satellite/object0
+  - http://localhost:5000/get-images-from-droid/object0
+    - this one may take time due to large data throughput, returns encoded binary data from 
 
 ## Development
 You can start the compose project with the below docker compose command. I have found that using bind mounts help me with local development but is not necessary (you can google this).
