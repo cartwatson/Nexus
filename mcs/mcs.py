@@ -1,13 +1,13 @@
 import time
+import base64
 import random
 import psycopg2
+import requests
 
 # NOTES:
 # request looks like
 # datetime                                      target_sat, fulfillled, pending
 # (datetime.datetime(2024, 3, 27, 7, 1, 44, 308839), 'object0', False, False)
-# upload images to psql
-# https://www.postgresql.org/docs/7.4/jdbc-binary-data.html
 
 
 def send_image_requests(cur):
@@ -22,43 +22,60 @@ def send_image_requests(cur):
     if not pending_requests:
         return
 
-    print("REQUESTING...")  # DEBUG: REMOVE BEFORE PROD
+    print("TRANSMITTING REQUESTS...")
     for request in results:
-        print(request)  # DEBUG: REMOVE BEFORE PROD
         # send request to droid to take image of target satellite
         # mark request as pending
         cur.execute(f"UPDATE requests SET pending='TRUE' WHERE time='{request[0]}'")
     return
 
 
-def download_all_images(cur):
+def download_all_images(cur, droid_id):
     """download all images from satellite to db"""
 
-    # set image request to fulfilled in db table
+    # get image requests to be fulfilled
     cur.execute("SELECT * FROM requests WHERE fulfilled='FALSE' AND pending='TRUE'")
     results = cur.fetchall()
 
-    unfulfilled_requests = len(results)
-
-    if not unfulfilled_requests:
+    if not len(results):
         return
 
-    print("DOWNLOADING...")  # DEBUG: REMOVE BEFORE PROD
+    print("DOWNLOADING IMAGES...")
     for request in results:
-        print(request)  # DEBUG: REMOVE BEFORE PROD
+        # NOTE: these idx's will change if db changes...
+        time_stamp = request[0]
+        sat_id = request[1]
+
         # query droid for image based on request
-        # if image exists, update request
-        cur.execute(f"UPDATE requests SET fulfilled='TRUE' WHERE time='{request[0]}'")
-        # push image to db
-    pass
+        try:
+            response = requests.get(f"http://satellite:5050/take-image/{sat_id}")
+            image_byte_data = response.json()["image_data"]
+        except:
+            print(f"FAILURE: unable to obtain image for {sat_id}")
+            continue
+
+        try:
+            # push image to db
+            cur.execute(
+                f"""INSERT INTO images (time_taken, taken_by, id_sat, img) VALUES
+                ('{time_stamp}', '{droid_id}', '{sat_id}', '{image_byte_data}')
+                """
+            )
+            # if image exists, update request
+            cur.execute(f"UPDATE requests SET fulfilled='TRUE' WHERE time='{time_stamp}'")
+        except:
+            print("FAILURE: unable to upload image to db")
+            continue
 
 
 def main(cur):
     while True:
-        print("ESTABLISHING COMMUNICATION WITH DROID")
-        download_all_images(cur)
+        # NOTE: future work could allow droids to be added to mcs while running
+        droid = "DROID"
+        print(f"ESTABLISHING COMMUNICATION WITH {droid}")
+        download_all_images(cur, droid)
         send_image_requests(cur)
-        print("COMMUNICATION LOST...")
+        print(f"COMMUNICATION WITH {droid} LOST...")
         # system to intermittetly create contacts with satellite
         time.sleep(random.randint(5, 10))
 
