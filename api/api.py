@@ -1,5 +1,6 @@
 import os
 import time
+import json
 from datetime import datetime
 from flask import Flask, jsonify
 import psycopg2
@@ -11,11 +12,14 @@ app = Flask(__name__)
 def add_tracked_satellite(satellite_id):
     """Add tracked satellite to database"""
 
-    cur.execute(
-        f"""INSERT INTO satellites (id) VALUES
-        ('{satellite_id}')
-        """
-    )
+    try:
+        cur.execute(
+            f"""INSERT INTO satellites (id) VALUES
+            ('{satellite_id}')
+            """
+        )
+    except:
+        return jsonify({"FAILURE": f"Already tracking: {satellite_id}"}), 500
 
     return jsonify({"SUCCESS": f"Now tracking: {satellite_id}"}), 200
 
@@ -43,16 +47,23 @@ def get_image(satellite_id, taken_by=None):
     # Make request for image
     cur.execute(request)
     results = cur.fetchall()
-
-    img_returned = len(results)
+    print(f"results:  {results}", flush=True)  # DEBUG
+    print(f"results2: {results[0][0].tobytes()}", flush=True)  # DEBUG
 
     # handle case where no images are returned
-    if not img_returned:
+    if not len(results):
         # TODO: tell user if there are pending requests for this object
         # NOTE: may be more appropriate for this to be 204 code
         return jsonify({"ERROR": f"{satellite_id} is tracked but no images found"}), 200
-    # TODO: do something with results as they'll be raw image data
-    return jsonify({"results": results}), 200
+
+    # convert from results
+    images = []
+    for result in results:
+        images += result[0].tobytes()
+        # NOTE: There has got to be a cleaner way to do this
+
+
+    return jsonify({"images": images}), 200
 
 
 @app.route("/get-images-from-droid/<satellite_id>")
