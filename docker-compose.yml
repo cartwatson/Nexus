@@ -14,9 +14,8 @@ services:
     image: "satellite"
     build:
       context: ./satellite
-    # TODO: change this host port at minimum
-    # ports:
-      # - "5000:5000"
+    ports:
+      - "5050:5050"
 
   mcs:
     image: "mcs"
