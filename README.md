@@ -1,5 +1,5 @@
 # Turion Take Home
 
-## Documents
+## Instructions to run
 
 - [Usage](/docs/USAGE.md)
