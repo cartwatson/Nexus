@@ -1,13 +1,9 @@
 import time
-import base64
+import json
 import random
 import psycopg2
 import requests
-
-# NOTES:
-# request looks like
-# datetime                                      target_sat, fulfillled, pending
-# (datetime.datetime(2024, 3, 27, 7, 1, 44, 308839), 'object0', False, False)
+from datetime import datetime
 
 
 def send_image_requests(cur):
@@ -24,9 +20,14 @@ def send_image_requests(cur):
 
     print("TRANSMITTING REQUESTS...")
     for request in results:
+        # NOTE: these idx's will change if db changes...
+        time_stamp = request[0]
+        sat_id = request[1]
+
         # send request to droid to take image of target satellite
+        requests.get(f"http://satellite:5050/take-image/{sat_id}")
         # mark request as pending
-        cur.execute(f"UPDATE requests SET pending='TRUE' WHERE time='{request[0]}'")
+        cur.execute(f"UPDATE requests SET pending='TRUE' WHERE time='{time_stamp}'")
     return
 
 
@@ -48,23 +49,17 @@ def download_all_images(cur, droid_id):
 
         # query droid for image based on request
         try:
-            response = requests.get(f"http://satellite:5050/take-image/{sat_id}")
-            image_byte_data = response.json()["image_data"]
-        except:
-            print(f"FAILURE: unable to obtain image for {sat_id}")
-            continue
+            json_data = requests.get(f"http://satellite:5050/transmit-image/{sat_id}").json()
 
-        try:
-            # push image to db
             cur.execute(
                 f"""INSERT INTO images (time_taken, taken_by, id_sat, img) VALUES
-                ('{time_stamp}', '{droid_id}', '{sat_id}', '{image_byte_data}')
+                ('{datetime.now()}', 'DROID', 'object0', '{json.dumps(json_data)}')
                 """
             )
-            # if image exists, update request
+
             cur.execute(f"UPDATE requests SET fulfilled='TRUE' WHERE time='{time_stamp}'")
         except:
-            print("FAILURE: unable to upload image to db")
+            print(f"FAILURE: unable to obtain image for {sat_id} or failure to upload to db")
             continue
 
 

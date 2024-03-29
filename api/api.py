@@ -1,6 +1,8 @@
 import os
+import io
 import time
 import json
+from PIL import Image
 from datetime import datetime
 from flask import Flask, jsonify
 import psycopg2
@@ -46,24 +48,19 @@ def get_image(satellite_id, taken_by=None):
 
     # Make request for image
     cur.execute(request)
-    results = cur.fetchall()
-    print(f"results:  {results}", flush=True)  # DEBUG
-    print(f"results2: {results[0][0].tobytes()}", flush=True)  # DEBUG
+    # results = cur.fetchall()
 
-    # handle case where no images are returned
-    if not len(results):
-        # TODO: tell user if there are pending requests for this object
-        # NOTE: may be more appropriate for this to be 204 code
-        return jsonify({"ERROR": f"{satellite_id} is tracked but no images found"}), 200
+    row = cur.fetchone()
+    if row:
+        json_data = json.loads(row[0].tobytes())
+        base64_encoded_image = json_data["image_data"]
+        image_bytes = bytes.fromhex(base64_encoded_image)
+        image = Image.open(io.BytesIO(image_bytes))
+        image.save(f"images/{satellite_id}.png")
+    else:
+        print("No image data found in the database")
 
-    # convert from results
-    images = []
-    for result in results:
-        images += result[0].tobytes()
-        # NOTE: There has got to be a cleaner way to do this
-
-
-    return jsonify({"images": images}), 200
+    return jsonify({"SUCCESS": "Image retrieved and displayed successfully"}), 200
 
 
 @app.route("/get-images-from-droid/<satellite_id>")

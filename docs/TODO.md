@@ -3,8 +3,8 @@
 - [ ] *section*    description
 
 - [ ] *api*        ensure compatibility with postman
-- [ ] *sat-feat-1* take fake image, store locally
-- [.] *api-feat*   get images of tracked satellite take by DROID
+- [X] *sat-feat-1* take fake image, store locally
+- [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        expose necessary ports, use service-name not IP

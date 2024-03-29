@@ -3,27 +3,30 @@
 ## Steps
 
 1. run `docker compose up -d --build`
-1. Connect to PG Admin
+2. Connect to PG Admin
   - as seen below
-1. Create pg server
+3. Create pg server
   - Name: starfire
   - Connections tab
     - Hostname: pg
     - Port 5432
     - Username: takehome
     - Password: takehome
-1. Init `takehome` db
+4. Init `takehome` db
   - `docker exec -it turion-take-home-pg-1 bash`
   - `./app/init.sh`
   - `exit`
-1. Test the following endpoints for basic functionality
+5. Test the following endpoints for basic functionality
   - ENDPOINTS
     - API -- localhost:5000
     - Sat -- localhost:5050
   - http://localhost:5000/add-satellite/object0
   - http://localhost:5000/request-image-of-satellite/object0
+6. open the mcs logs and wait until `TRANSMITTING REQUESTS...` and `DOWNLOADING IMAGES...` have been logged
   - http://localhost:5000/get-images-from-droid/object0
-    - this one may take time due to large data throughput, returns encoded binary data from 
+7. image of "object0" will be stored in the api container under `app/images/object0.png` 
+  - recognize the satellite? ;)
+8. feel free to repeat this process with multiple "satellites"
 
 ## Development
 You can start the compose project with the below docker compose command. I have found that using bind mounts help me with local development but is not necessary (you can google this).
