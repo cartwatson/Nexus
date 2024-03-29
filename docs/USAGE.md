@@ -4,28 +4,28 @@
 
 1. run `docker compose up -d --build`
 2. Connect to PG Admin
-  - as seen below
+    - as seen below
 3. Create pg server
-  - Name: starfire
-  - Connections tab
-    - Hostname: pg
-    - Port 5432
-    - Username: takehome
-    - Password: takehome
+    - Name: starfire
+    - Connections tab
+        - Hostname: pg
+        - Port 5432
+        - Username: takehome
+        - Password: takehome
 4. Init `takehome` db
-  - `docker exec -it turion-take-home-pg-1 bash`
-  - `./app/init.sh`
-  - `exit`
+    - `docker exec -it turion-take-home-pg-1 bash`
+    - `./app/init.sh`
+    - `exit`
 5. Test the following endpoints for basic functionality
-  - ENDPOINTS
-    - API -- localhost:5000
-    - Sat -- localhost:5050
-  - http://localhost:5000/add-satellite/object0
-  - http://localhost:5000/request-image-of-satellite/object0
+    - ENDPOINTS
+      - API -- localhost:5000
+      - Sat -- localhost:5050
+    - http://localhost:5000/add-satellite/object0
+    - http://localhost:5000/request-image-of-satellite/object0
 6. open the mcs logs and wait until `TRANSMITTING REQUESTS...` and `DOWNLOADING IMAGES...` have been logged
-  - http://localhost:5000/get-images-from-droid/object0
+    - http://localhost:5000/get-images-from-droid/object0
 7. image of "object0" will be stored in the api container under `app/images/object0.png` 
-  - recognize the satellite? ;)
+    - recognize the satellite? ;)
 8. feel free to repeat this process with multiple "satellites"
 
 ## Development
