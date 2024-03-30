@@ -2,7 +2,7 @@ import os
 import random
 import shutil
 from datetime import datetime
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def take_image(target_sat):
         f"taken-images/{target_sat}.png",
     )
 
-    return jsonify({"SUCCESS": "Image taken successfully"}), 200
+    return {"SUCCESS": "Image taken successfully"}, 200
 
 
 @app.route("/transmit-image/<target_sat>")

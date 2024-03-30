@@ -10,20 +10,20 @@ import psycopg2
 app = Flask(__name__)
 
 
-@app.route("/add-satellite/<satellite_id>")
-def add_tracked_satellite(satellite_id):
+@app.route("/add-satellite/<sat_id>")
+def add_tracked_satellite(sat_id):
     """Add tracked satellite to database"""
 
     try:
         cur.execute(
             f"""INSERT INTO satellites (id) VALUES
-            ('{satellite_id}')
+            ('{sat_id}')
             """
         )
     except:
-        return jsonify({"FAILURE": f"Already tracking: {satellite_id}"}), 500
+        return {"FAILURE": f"Already tracking: {sat_id}"}, 500
 
-    return jsonify({"SUCCESS": f"Now tracking: {satellite_id}"}), 200
+    return {"SUCCESS": f"Now tracking: {sat_id}"}, 200
 
 
 @app.route("/request-image-of-satellite/<target_sat>")
@@ -36,13 +36,13 @@ def request_image_of_satellite(target_sat):
         """
     )
 
-    return jsonify({"SUCCESS": f"Request for image of {target_sat} submitted"}), 200
+    return {"SUCCESS": f"Request for image of {target_sat} submitted"}, 200
 
 
-def get_image(satellite_id, taken_by=None):
+def get_image(sat_id, taken_by=None):
     """get image of a specific satellite"""
 
-    request = f"SELECT img FROM images WHERE id_sat='{satellite_id}'"
+    request = f"SELECT img FROM images WHERE id_sat='{sat_id}'"
     if taken_by:
         request += f"AND taken_by='{taken_by}'"
 
@@ -56,17 +56,17 @@ def get_image(satellite_id, taken_by=None):
         base64_encoded_image = json_data["image_data"]
         image_bytes = bytes.fromhex(base64_encoded_image)
         image = Image.open(io.BytesIO(image_bytes))
-        image.save(f"images/{satellite_id}.png")
+        image.save(f"images/{sat_id}.png")
     else:
         print("No image data found in the database")
 
-    return jsonify({"SUCCESS": "Image retrieved and displayed successfully"}), 200
+    return {"SUCCESS": "Image retrieved and displayed successfully"}, 200
 
 
-@app.route("/get-images-from-droid/<satellite_id>")
-def get_images_from_droid(satellite_id):
+@app.route("/get-images-from-droid/<sat_id>")
+def get_images_from_droid(sat_id):
     """get images of a tracked satellite taken by DROID"""
-    return get_image(satellite_id, taken_by="DROID")
+    return get_image(sat_id, taken_by="DROID")
 
 
 if __name__ == "__main__":
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             print("connection established")
             connected = True
         except:  # noqa: E722
-            print("connection to db failed: attempting reconnect in 1sec")
+            print("connection to db failed: attempting reconnect in 1sec...")
             time.sleep(1)
 
     cur = conn.cursor()
