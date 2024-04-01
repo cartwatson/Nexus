@@ -3,15 +3,15 @@
 - [ ] *section*    description
 
 - [ ] *api*        enfore GET/POST/etc requests
-- [ ] *api*        ensure compatibility with postman
-- [ ] *api-feat*   add default to get images from droid that downloads all images
 - [ ] *sat*        change "taken image" file name to include timestamp
 - [ ] *sat-refact* fix return json objects to be inline with api
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
+- [X] *api*        ensure compatibility with postman
 - [X] *api*        expose necessary ports, use service-name not IP
 - [X] *api*        upgrade to key value params
 - [X] *api-bug*    api tries to start before postgresql is initialized
+- [X] *api-feat*   add default to get images from droid that downloads all images
 - [X] *api-feat*   add tracked satellite to db
 - [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api-feat*   request image of a tracked satellite, store these requests

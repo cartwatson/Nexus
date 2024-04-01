@@ -10,7 +10,7 @@ When finished, please send a GitHub link or a zip of the project via email.
 
 ### Diagram of interactions
 
-API <-> PG DB <-- MCS <-> Satellite
+API <-> PG DB <-> MCS <-> Satellite
 
 ### Prompt
 
