@@ -14,3 +14,6 @@
     - file naming
         - find way to incorporate datetime when the image was taken
         - find way to take more than one image of a satellite
+- api
+    - enforce request type for security purposes
+    - might be worth using PUT request type in some places

@@ -2,6 +2,7 @@
 
 - [ ] *section*    description
 
+- [ ] *api*        enfore GET/POST/etc requests
 - [ ] *api*        ensure compatibility with postman
 - [ ] *sat-refact* fix return json objects to be inline with api
 - [ ] *refactor*   change api urls to use key/params instead of hardcoded URI
