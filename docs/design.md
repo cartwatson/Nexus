@@ -46,4 +46,6 @@ Overall the program works well. The feature that I would most like to add would 
 
 Additionally, there currently is no POST/PUT request on images but it may be nice functionality to have in case an operator manually got an image from a droid or for any other reason.  
 
+As a final note, currently the only way to test the api, and by extension the system, is manually. In the case of future work and expanded capability it would be incredibly beneficial to create an automated testing suite of any kind.  
+
 More notes & ideas on future capabilities can be found in the [future-work doc](/docs/future-work.md)  

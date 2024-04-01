@@ -27,3 +27,4 @@
     - Some chunks of code are reused throughout multiple files/containers there may be benefit in consolidating some aspects (eg: MCS and API both reuse the same block to connect to and validate the database)
         - This could be done with the creation of a package/gem/crate/etc
     - Automate creation of pgadmin server and incorporate that into "build-and-run.sh"
+    - Create an automated testing suite
