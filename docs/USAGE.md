@@ -32,6 +32,9 @@
 2. Init `takehome` database
     - `docker exec -it turion-take-home-pg-1 bash`
     - runs [db/init.sh](../db/init.sh) as sudo on the `turion-take-home-pg-1` container
+        - `apk add python3 py3-pip;`
+        - `pip install -r app/requirements.txt;`
+        - `python3 app/init_db.py;`
     - `exit`
 
 ## Connect to PG Admin and Create Server
