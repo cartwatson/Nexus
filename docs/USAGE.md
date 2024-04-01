@@ -2,7 +2,7 @@
 
 ## Steps
 
-*Technically steps 2-3 are not essential but they do add convenience*
+*Technically step 2 is not essential but it does add convenience*
 
 1. Run `./build-and-run.sh`
     - Details below
