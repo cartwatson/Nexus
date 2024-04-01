@@ -29,3 +29,4 @@
 - misc
     - some chunks of code are reused throughout multiple files/containers there may be benefit in consolidating some aspects (eg: db connection/init validation)
         - this could be done with the creation of a package/gem/crate/etc
+    - automate creation of pg server and incorporate that into "build-and-run.sh"
