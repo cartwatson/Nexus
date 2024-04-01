@@ -4,15 +4,17 @@
 
 - [ ] *api*        enfore GET/POST/etc requests
 - [ ] *api*        ensure compatibility with postman
+- [ ] *api-feat*   add default to get images from droid that downloads all images
+- [ ] *sat*        change "taken image" file name to include timestamp
 - [ ] *sat-refact* fix return json objects to be inline with api
-- [ ] *refactor*   change api urls to use key/params instead of hardcoded URI
+- [X] *api*        add docker image to docker compose
+- [X] *api*        create docker image
+- [X] *api*        expose necessary ports, use service-name not IP
+- [X] *api*        upgrade to key value params
 - [X] *api-bug*    api tries to start before postgresql is initialized
 - [X] *api-feat*   add tracked satellite to db
 - [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api-feat*   request image of a tracked satellite, store these requests
-- [X] *api*        add docker image to docker compose
-- [X] *api*        create docker image
-- [X] *api*        expose necessary ports, use service-name not IP
 - [X] *database*   create/init necessary tables
 - [X] *docker*     get default docker containers spun up
 - [X] *docs*       create/organize docs from given materials
@@ -22,6 +24,7 @@
 - [X] *mcs-feat*   periodically send "download all images" command to satellite
 - [X] *mcs-feat*   when contact established; send imaging requests from db
 - [X] *misc*       init .gitignore
+- [X] *refactor*   change api urls to use key/params instead of hardcoded URI
 - [X] *refactor*   change return types of api to { success:bool, message:"str", data:misc}
 - [X] *sat-feat-1* receive imaging requests from MCS
 - [X] *sat-feat-1* take fake image, store locally

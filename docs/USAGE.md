@@ -14,14 +14,14 @@
         - Port 5432
         - Username: takehome
         - Password: takehome
-4. Init `takehome` db
+4. Init `takehome` database
     - `docker exec -it turion-take-home-pg-1 bash`
     - `./app/init.sh`
     - `exit`
 5. Make the following api calls, note the ports and their associated services
     - http://localhost:5000/add-satellite/object0
     - http://localhost:5000/request-image-of-satellite/object0
-    - ENDPOINTS
+    - Endpoints/Ports
       - API -- localhost:5000
       - Sat -- localhost:5050
 6. open the mcs logs and wait until `TRANSMITTING REQUESTS...` and `DOWNLOADING IMAGES...` have been logged, then make the following api call

@@ -2,6 +2,8 @@
 
 ## Notes about future work
 
+- overall
+    - some chunks of code are reused throughout multiple files/containers there may be benefit in consolidating some aspects (eg: db connection/init validation)
 - DB
     - ability to expand to have multiple "DROID"s
     - init tables script, weird approach, would spend more time learning the "right way"
@@ -17,3 +19,5 @@
 - api
     - enforce request type for security purposes
     - might be worth using PUT request type in some places
+    - ability to upload images directly to db with /images
+    - enfore satellite naming conventions, currently "" is a valid object name
