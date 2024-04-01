@@ -31,16 +31,20 @@
 1. Run `docker compose up -d --build`
 2. Init `takehome` database
     - `docker exec -it turion-take-home-pg-1 bash`
-    - `./app/init.sh`
+    - runs [db/init.sh](../db/init.sh) as sudo on the `turion-take-home-pg-1` container
     - `exit`
 
-## Connect to PG Admin
+## Connect to PG Admin and Create Server
 
-PG Admin runs on port 5001. To access, navigate to `localhost:5001` in a web browser. The username and password are set in `docker-compose.yml` based on the environment variables. The defaults are:
+### Connect to PG Admin
+
+PG Admin runs on port 5001. To access, navigate to `localhost:5001` in a web browser. The username and password are set in `docker-compose.yml` based on the environment variables.  
+
+- The defaults are:
     - Username: takehome@takehome.com
     - Password: takehome
 
-## Create a server if it doesn't exist
+### Create Server
 
 *If `docker-compose.yml` is modified it will change the following values*
 
