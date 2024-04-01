@@ -3,11 +3,11 @@
 ## General Notes
 
 - API is hosted on port 5000 inside the container
-- to access API when run in docker `localhost:5000`
-- request type is not currently enforced
-- all return information is in the following form
+- To access API when run in docker `localhost:5000`
+- Request type is not currently enforced
+- All return information is in the following form
 
-```json
+```
 {
   "Success": boolean,
   "Message": "Message about what happened or the data param",
@@ -31,7 +31,7 @@ Request types: `POST`
 Expected Parameters:
 - `id`
     - id of satellite to image
-    - if not provided, API errors out
+    - if not provided, function errors out
  
 ## Get Images from Droid
 
@@ -42,5 +42,5 @@ Expected Parameters:
     - id of satellite request
     - if not provided, all images are returned
 - `droid`
-    - id of droid from which images are requested
+    - id of droid that images are requested from
     - if not provided, "DROID" is assumed
