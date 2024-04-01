@@ -17,27 +17,30 @@
 
 ## Track Satellites
 
-URL: /track-satellite
+URL: `/track-satellite`  
+Request types: `POST/PUT`, `GET`  
 Expected Parameters:
 - `id`
-    - id of satellite to track, this should be a POST request
+    - id of satellite to track
     - if not provided, a list of satellites will be returned, this should be a GET request
 
 ## Create Request for Image of Satellite
 
-URL: /request-image
+URL: `request-image`  
+Request types: `POST`  
 Expected Parameters:
 - `id`
     - id of satellite to image
-    - if not provided, api errors out
+    - if not provided, API errors out
  
 ## Get Images from Droid
 
-URL: /images
+URL: `/images`  
+Request types: `GET`  
 Expected Parameters:
 - `id`
     - id of satellite request
-    - if not provided, error occurs # TODO: could return all images
+    - if not provided, all images are returned
 - `droid`
     - id of droid from which images are requested
     - if not provided, "DROID" is assumed
