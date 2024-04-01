@@ -2,9 +2,6 @@
 
 - [ ] *section*    description
 
-- [ ] *api*        enfore GET/POST/etc requests
-- [ ] *sat*        change "taken image" file name to include timestamp
-- [ ] *sat-refact* fix return json objects to be inline with api
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        ensure compatibility with postman
@@ -17,7 +14,10 @@
 - [X] *api-feat*   request image of a tracked satellite, store these requests
 - [X] *database*   create/init necessary tables
 - [X] *docker*     get default docker containers spun up
+- [X] *docker*     write build script
 - [X] *docs*       create/organize docs from given materials
+- [X] *docs*       update URLs in [usage](/docs/USAGE.md)
+- [X] *docs*       update usage with build script
 - [X] *general*    figure out to return images
 - [X] *general*    figure out to store images
 - [X] *mcs-feat*   mechanism to intermittely "contact" satellite
