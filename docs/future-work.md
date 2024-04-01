@@ -1,6 +1,4 @@
-# Questions/Clarifications
-
-## Notes about future work
+# Future Work
 
 - DB
     - ability to expand to have multiple "DROID"s
