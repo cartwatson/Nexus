@@ -6,22 +6,20 @@
 
 1. Run `./build-and-run.sh`
     - Details below
-2. Connect to PG Admin
+1. Connect to PG Admin and create pg server
     - Details below
-3. Create pg server
-    - Details below
-4. Make the following api calls, note the ports and their associated services*
+1. Make the following api calls, note the ports and their associated services*
     - http://localhost:5000/track-satellite?id=object0
     - http://localhost:5000/request-image?id=object0
     - Endpoints/Ports
       - API -- localhost:5000
       - Sat -- localhost:5050
-5. Open the MCS logs and wait until `TRANSMITTING REQUESTS...` and `DOWNLOADING IMAGES...` have been logged
-6. Make the following api call
+1. Open the MCS logs and wait until `TRANSMITTING REQUESTS...` and `DOWNLOADING IMAGES...` have been logged
+1. Make the following api call
     - http://localhost:5000/images?id=object0
-7. Image of "object0" will be stored in the api container under `app/images/object0.png` 
+1. Image of "object0" will be stored in the api container under `app/images/object0.png` 
     - Recognize the image? ;)
-8. Feel free to repeat this process with multiple "satellites"
+1. Feel free to repeat this process with multiple "satellites"
     - The image "taken" will be a random selection of four images of the real droid
 
 \* The ports will be changed if `docker-compose.yml` is modified
