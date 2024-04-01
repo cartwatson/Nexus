@@ -88,7 +88,7 @@ if __name__ == "__main__":
             )
             print("connection established")
             connected = True
-        except:  # noqa: E722
+        except psycopg2.OperationalError:
             print("connection to db failed: attempting reconnect in 1sec...")
             time.sleep(1)
 
@@ -101,7 +101,7 @@ if __name__ == "__main__":
         try:
             cur.execute("SELECT * FROM images")
             db_init = True
-        except:
+        except:  # noqa: E722
             print("Postgresql tables not initialized: checking again in 3sec...")
             time.sleep(3)
 
