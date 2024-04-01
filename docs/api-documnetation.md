@@ -9,7 +9,7 @@
 
 ```json
 {
-  "Success": bool,
+  "Success": boolean,
   "Message": "Message about what happened or the data param",
   "Data": Any type of Data
 }
