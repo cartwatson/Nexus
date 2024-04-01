@@ -24,16 +24,16 @@ The satellite was designed very similarly to the API.  It only needs two aspects
 
 ## Database
 
-Requests:  
+### Requests
 The requests table uses the time the request was made as it's primary key.  This value is used to sort requests prior to being sent to the satellite.  The `target_sat` is used to determine which satellite to take a picture of, it has a foreign key relation to `satellites`. `pending` and `fulfilled` are used to determine the stage of the request.  It may be more human reable to use something like an enum in place of those two columns in the future, the original way would save on storage though in some cases, due to differences in bool/enum storage. 
 
-Satellites:  
+### Satellites
 The satellites table is very bare.  I only implemented what I needed for an MVP which in this case was just an id.  Future work could very easily expand this to include a description, or extra data.  This would be a trivial change and could be done within an hour.  
 
-Droids:  
+### Droids
 The droids table is likewise bare, for the same reasons as the satellite. Again, I would recommend expanding it to include more usable and human readable info in the future should more work be done on this project.  
 
-Images:  
+### Images
 The images table was built with future work in mind.  The `time_taken` value would ideally be the time an image was taken and currenlty serves as the primary key. In the future the primary key should change to a UUID to ensure there are no strange conflicts.  The `taken_by` value would allow the user to query the db for images taken by a specific droid (the api currently has this functionality, the hold up is on MCS not supporting multiple droids). Additionally the `taken_by` value must match an entry in the `droids` table. `id_sat` is simply the given id of the satellite of which the image was requested, it must match a value in the `satellites` table. Lastly, the `img` is the raw binary data of the png, including header in this case.  
 
 ## What's left to do now?
@@ -42,4 +42,4 @@ Overall the program works well. The feature that I would like to add would be to
 
 Currently there is no POST/PUT request on images but it may be nice functionality to have incase an operator manually got an image from a droid or for any other reason.  
 
-more notes can be found in [future-work](/docs/future-work.md)  
+More notes & ideas can be found in [future-work](/docs/future-work.md)  
