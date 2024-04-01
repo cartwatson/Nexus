@@ -10,7 +10,7 @@ def send_image_requests(cur):
     """send requests to satellite for unfulfilled requests"""
 
     # get image requests & don't resend fulfilled and pending requests
-    cur.execute("SELECT * FROM requests WHERE fulfilled='FALSE' AND pending='FALSE'")
+    cur.execute("SELECT * FROM requests WHERE fulfilled='FALSE' AND pending='FALSE' ORDER BY time")
     results = cur.fetchall()
 
     if not len(results):
@@ -57,7 +57,7 @@ def download_all_images(cur, droid_id):
             )
 
             cur.execute(f"UPDATE requests SET fulfilled='TRUE' WHERE time='{time_stamp}'")
-        except:
+        except Exception:
             print(f"FAILURE: unable to obtain image for {sat_id} or failure to upload to db")
             continue
 
@@ -101,7 +101,7 @@ if __name__ == "__main__":
         try:
             cur.execute("SELECT * FROM images")
             db_init = True
-        except:  # noqa: E722
+        except Exception:
             print("Postgresql tables not initialized: checking again in 3sec...")
             time.sleep(3)
 

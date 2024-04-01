@@ -65,8 +65,10 @@ def request_image_of_satellite():
             ('{sat_id}', '{datetime.now()}', 'FALSE', 'FALSE')
             """
         )
-    except psycopg2.errors:
-        return return_json(False, f"Error submitting request for image of {sat_id}.", None, 500)
+    except psycopg2.IntegrityError:
+        return return_json(False, f"Error submitting request for image of {sat_id}: satellite not tracked!", None, 500)
+    except Exception:
+        return return_json(False, f"Unknown error submitting request for image of {sat_id}.", None, 500)
 
     return return_json(True, f"Request for image of {sat_id} submitted.", None, 201)
 
@@ -118,7 +120,9 @@ def get_images_from_droid():
             image_data = get_image(satellite)[0]["Data"]
             if image_data is not None:
                 images[satellite] = image_data
-        return return_json(True, "JSON object of binary data of images, all images saved in container (app/images/<satellite_id>.png)", images, 200)
+        if images != {}:
+            return return_json(True, "JSON object of binary data of images, all images saved in container (app/images/<satellite_id>.png)", images, 200)
+        return return_json(False, "No images found!", None, 500)
     except psycopg2.errors:
         return return_json(False, "Error attempting to return all images", None, 500)
 
@@ -150,7 +154,7 @@ if __name__ == "__main__":
         try:
             cur.execute("SELECT * FROM images")
             db_init = True
-        except:  # noqa: E722
+        except Exception:
             print("Postgresql tables not initialized: checking again in 3sec...")
             time.sleep(3)
 
