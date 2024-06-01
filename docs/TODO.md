@@ -2,6 +2,11 @@
 
 - [ ] *section*    description
 
+- [ ] *api/db*     use UUIDs
+- [ ] *api/db*     add data to requests and images
+- [ ] *frontend*   integrate api into dashboard (be able to make api calls from ui)
+- [ ] *frontend*   integreate communication with db (see data from db in ui)
+- [X] *frontend*   create mvp react image
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        ensure compatibility with postman
