@@ -13,18 +13,23 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Build the app
-RUN npm run build
+# Expose port 3000
+EXPOSE 3000
 
-# Use an official Nginx image to serve the React application
-FROM nginx:alpine
+# Start the React app in development mode
+CMD ["npm", "start"]
 
-# Copy the build output to the Nginx html directory
-COPY --from=0 /app/build /usr/share/nginx/html
+##### PROD MODE #####
 
-# Expose port 80
-EXPOSE 80
+# # Build the app
+# RUN npm run build
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# # Use an official Nginx image to serve the React application
+# FROM nginx:alpine
+
+# # Copy the build output to the Nginx html directory
+# COPY --from=0 /app/build /usr/share/nginx/html
+
+# # Start Nginx
+# CMD ["nginx", "-g", "daemon off;"]
 

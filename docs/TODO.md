@@ -2,11 +2,11 @@
 
 - [ ] *section*    description
 
-- [ ] *api/db*     use UUIDs
 - [ ] *api/db*     add data to requests and images
+- [ ] *api/db*     use UUIDs
+- [ ] *env*        variable for dev/prod
 - [ ] *frontend*   integrate api into dashboard (be able to make api calls from ui)
 - [ ] *frontend*   integreate communication with db (see data from db in ui)
-- [X] *frontend*   create mvp react image
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        ensure compatibility with postman
@@ -23,6 +23,8 @@
 - [X] *docs*       create/organize docs from given materials
 - [X] *docs*       update URLs in [usage](/docs/USAGE.md)
 - [X] *docs*       update usage with build script
+- [X] *frontend*   create mvp react image
+- [X] *frontend*   hot-reload for react dev
 - [X] *general*    figure out to return images
 - [X] *general*    figure out to store images
 - [X] *mcs-feat*   mechanism to intermittely "contact" satellite

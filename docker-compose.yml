@@ -6,7 +6,13 @@ services:
     build:
       context: ./dashboard
     ports:
-      - "3000:80"
+      - "3000:3000"
+    # NOTE: hot reload - remove before prod
+    volumes:
+      - ./dashboard:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   api:
     image: "api"
