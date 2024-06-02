@@ -7,6 +7,7 @@
 - [ ] *env*        variable for dev/prod
 - [ ] *frontend*   integrate api into dashboard (be able to make api calls from ui)
 - [ ] *frontend*   integreate communication with db (see data from db in ui)
+- [ ] *frontend*   move components in modules
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        ensure compatibility with postman

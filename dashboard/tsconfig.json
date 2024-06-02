@@ -7,16 +7,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@layouts/*": [
-        "components/layouts/*"
-      ],
-      "@dashboards/*": [
-        "components/layouts/dashboards/*"
-      ],
       "*": [
         "node_modules/@types/*"
       ]
