@@ -9,6 +9,6 @@ header "DOCKER COMPOSE"
 docker compose up -d --build
 
 header "INIT DATABASE"
-docker exec -i turion-take-home-pg-1 /bin/sh < db/init.sh
+docker exec -i nexus-pg-1 /bin/sh < db/init.sh
 
 header "SUCCESSFUL INIT\nAPI now ready to test!"
