@@ -6,7 +6,21 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@layouts/*": [
+        "components/layouts/*"
+      ],
+      "@dashboards/*": [
+        "components/layouts/dashboards/*"
+      ],
+      "*": [
+        "node_modules/@types/*"
+      ]
+    }
   },
   "include": [
     "src"
