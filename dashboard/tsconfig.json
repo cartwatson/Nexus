@@ -9,6 +9,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "paths": {
+      "types/*": [
+        "types/*"
+      ],
       "*": [
         "node_modules/@types/*"
       ]
