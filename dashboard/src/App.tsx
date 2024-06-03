@@ -10,10 +10,10 @@ import SidebarComponent from './components/layouts/Sidebar';
 import FooterComponent from './components/layouts/Footer';
 
 // dashboards
-import HomeDashboard from './components/layouts/dashboards/HomeDashboard';
-import SatelliteDashboard from './components/layouts/dashboards/SatelliteDashboard'; 
-import DroidsDashboard from './components/layouts/dashboards/DroidsDashboard'; 
-import ImagesDashboard from './components/layouts/dashboards/ImagesDashboard';
+import HomeDashboard from './components/dashboards/HomeDashboard';
+import SatelliteDashboard from './components/dashboards/SatelliteDashboard'; 
+import DroidsDashboard from './components/dashboards/DroidsDashboard'; 
+import ImagesDashboard from './components/dashboards/ImagesDashboard';
 
 const App: React.FC = () => {
     return (
