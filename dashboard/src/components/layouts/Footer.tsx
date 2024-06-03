@@ -6,7 +6,7 @@ const { Footer } = Layout;
 const FooterComponent: React.FC = () => {
     return (
         <Footer>
-          <div>©Created by <a href="https://github.com/cartwatson">Carter Watson</a></div>
+          <div>© 2024 <a href="https://github.com/cartwatson">Carter Watson</a></div>
         </Footer >
     );
 };

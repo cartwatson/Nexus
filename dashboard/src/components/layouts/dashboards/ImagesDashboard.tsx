@@ -4,7 +4,7 @@ import React from 'react';
 const ImagesDashboard: React.FC = () => {
     return (
         <div>
-            content
+            Images content
         </div>
     );
 };
