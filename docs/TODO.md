@@ -3,8 +3,10 @@
 - [ ] *section*    description
 
 - [ ] *api/db*     add data to requests and images
+- [ ] *api/db*     add data to satellites (lat, long, velo, altitude)
 - [ ] *api/db*     use UUIDs
 - [ ] *env*        variable for dev/prod
+- [ ] *frontend*   home dashboard should be favorited components from other dashboards
 - [ ] *frontend*   integrate api into dashboard (be able to make api calls from ui)
 - [ ] *frontend*   integreate communication with db (see data from db in ui)
 - [ ] *frontend*   move components in modules
