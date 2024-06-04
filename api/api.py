@@ -5,9 +5,11 @@ import json
 from PIL import Image
 from datetime import datetime
 from flask import Flask, request
+from flask_cors import CORS
 import psycopg2
 
 app = Flask(__name__)
+cors = CORS(app)
 
 
 def return_json(success, message, data=None, status_code=500):
@@ -17,6 +19,12 @@ def return_json(success, message, data=None, status_code=500):
         "Message": message,
         "Data": data
     }, status_code
+
+
+# home route to test if api endpoint is working
+@app.route("/")
+def api_status():
+    return return_json(True, "API is running...", None, 200)
 
 
 # expects id of satellite to track as param on request
@@ -42,10 +50,13 @@ def add_tracked_satellite():
 
     # if no URL params provided, return list of all tracked satellites
     try:
-        cur.execute("SELECT id FROM satellites")
+        cur.execute("SELECT * FROM satellites")
         satellites = cur.fetchall()
-        satellites_processed = [ x for xs in satellites for x in xs ]
-        return return_json(True, "Provided data is all tracked satellites.", satellites_processed, 200)
+        # Get column headers from cursor.description
+        columns = [desc[0] for desc in cur.description]
+        # Convert each tuple to a dictionary using column headers
+        satellites_processed = [dict(zip(columns, row)) for row in satellites]
+        return return_json(True, "Provided data is a list of all tracked satellites.", satellites_processed, 200)
     except:
         return return_json(False, "Unable to get list of tracked satellites!", None, 500)
 
