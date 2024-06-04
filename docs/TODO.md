@@ -2,25 +2,29 @@
 
 - [ ] *section*    description
 
-- [ ] *api*        handle `track-satellite` empty request to return satellite objects not just satellite names
-- [ ] *api/db*     add data to requests and images
-- [ ] *api/db*     add data to satellites (lat, long, velo, altitude)
+- [ ] *api/db*     add data to requests and images tables
 - [ ] *api/db*     use UUIDs
 - [ ] *dashboard*  auto update dashboard pages every x amount of time
 - [ ] *dashboard*  home dashboard should be favorited components from other dashboards
 - [ ] *dashboard*  implement toast system
 - [ ] *dashboard*  move components in modules
+- [ ] *dashboard*  satellitedash doesn't have info when no satellites are being tracked
 - [ ] *env*        variable for dev/prod
+- [ ] *testing*    develop testing suite for entire stack
+- [ ] *tools*      fix issues detecting errors in db init stage of build and run script
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
+- [X] *api*        disallow bad satellite names
 - [X] *api*        ensure compatibility with postman
 - [X] *api*        expose necessary ports, use service-name not IP
+- [X] *api*        handle `track-satellite` empty request to return satellite objects not just satellite names
 - [X] *api*        upgrade to key value params
 - [X] *api-bug*    api tries to start before postgresql is initialized
 - [X] *api-feat*   add default to get images from droid that downloads all images
 - [X] *api-feat*   add tracked satellite to db
 - [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api-feat*   request image of a tracked satellite, store these requests
+- [X] *api/db*     add data to satellites (lat, long, velo, altitude, type, orbit type)
 - [X] *dashboard*  create mvp react image
 - [X] *dashboard*  hot-reload for react dev
 - [X] *dashboard*  integrate api into dashboard (be able to make api calls from ui)

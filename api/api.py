@@ -7,24 +7,17 @@ from datetime import datetime
 from flask import Flask, request
 from flask_cors import CORS
 import psycopg2
+import utils
+
 
 app = Flask(__name__)
 cors = CORS(app)
 
 
-def return_json(success, message, data=None, status_code=500):
-    """Create response for api"""
-    return {
-        "Success": success,
-        "Message": message,
-        "Data": data
-    }, status_code
-
-
 # home route to test if api endpoint is working
 @app.route("/")
 def api_status():
-    return return_json(True, "API is running...", None, 200)
+    return utils.return_json(True, "API is running...", None, 200)
 
 
 # expects id of satellite to track as param on request
@@ -33,8 +26,16 @@ def add_tracked_satellite():
     """Add tracked satellite to database"""
 
     sat_id = request.args.get('id')
+
     if sat_id is not None:
-        # param given, attempt to track satellite
+        # validate name further
+        valid_id, message = utils.valid_satellite_name(sat_id)
+        if not valid_id:
+            return utils.return_json(False, f"{sat_id} is an invalid name! {message}", None, 500)
+            
+
+        # valid param given, attempt to track satellite
+        sat_id = sat_id.lower()
         try:
             cur.execute(
                 f"""INSERT INTO satellites (id) VALUES
@@ -42,11 +43,11 @@ def add_tracked_satellite():
                 """
             )
         except psycopg2.errors.UniqueViolation:
-            return return_json(False, f"Already tracking {sat_id}!", None, 500)
+            return utils.return_json(False, f"Already tracking {sat_id}!", None, 500)
         except psycopg2.errors:
-            return return_json(False, f"Error occured while attempting to add {sat_id} as tracked in database!", None, 500)
+            return utils.return_json(False, f"Error occured while attempting to add {sat_id} as tracked in database!", None, 500)
 
-        return return_json(True, f"Now tracking {sat_id}", None, 201)
+        return utils.return_json(True, f"Now tracking {sat_id}", None, 201)
 
     # if no URL params provided, return list of all tracked satellites
     try:
@@ -56,10 +57,9 @@ def add_tracked_satellite():
         columns = [desc[0] for desc in cur.description]
         # Convert each tuple to a dictionary using column headers
         satellites_processed = [dict(zip(columns, row)) for row in satellites]
-        return return_json(True, "Provided data is a list of all tracked satellites.", satellites_processed, 200)
+        return utils.return_json(True, "Provided data is a list of all tracked satellites.", satellites_processed, 200)
     except:
-        return return_json(False, "Unable to get list of tracked satellites!", None, 500)
-
+        return utils.return_json(False, "Unable to get list of tracked satellites!", None, 500)
 
 
 @app.route("/request-image")
@@ -68,7 +68,7 @@ def request_image_of_satellite():
 
     sat_id = request.args.get('id')
     if sat_id is None:
-        return return_json(False, "No id provided!", None, 400)
+        return utils.return_json(False, "No id provided!", None, 400)
 
     try:
         cur.execute(
@@ -77,11 +77,11 @@ def request_image_of_satellite():
             """
         )
     except psycopg2.IntegrityError:
-        return return_json(False, f"Error submitting request for image of {sat_id}: satellite not tracked!", None, 500)
+        return utils.return_json(False, f"Error submitting request for image of {sat_id}: satellite not tracked!", None, 500)
     except Exception:
-        return return_json(False, f"Unknown error submitting request for image of {sat_id}.", None, 500)
+        return utils.return_json(False, f"Unknown error submitting request for image of {sat_id}.", None, 500)
 
-    return return_json(True, f"Request for image of {sat_id} submitted.", None, 201)
+    return utils.return_json(True, f"Request for image of {sat_id} submitted.", None, 201)
 
 
 def get_image(sat_id, taken_by=None):
@@ -104,9 +104,9 @@ def get_image(sat_id, taken_by=None):
         image = Image.open(io.BytesIO(image_bytes))
         image.save(image_save_dest)
     else:
-        return return_json(False, f"No image found in database for {sat_id}!", None, 500)
+        return utils.return_json(False, f"No image found in database for {sat_id}!", None, 500)
 
-    return return_json(True, f"Image of {sat_id} retrieved, saved in {image_save_dest}", base64_encoded_image, 200)
+    return utils.return_json(True, f"Image of {sat_id} retrieved, saved in {image_save_dest}", base64_encoded_image, 200)
 
 
 @app.route("/images")
@@ -132,10 +132,10 @@ def get_images_from_droid():
             if image_data is not None:
                 images[satellite] = image_data
         if images != {}:
-            return return_json(True, "JSON object of binary data of images, all images saved in container (app/images/<satellite_id>.png)", images, 200)
-        return return_json(False, "No images found!", None, 500)
+            return utils.return_json(True, "JSON object of binary data of images, all images saved in container (app/images/<satellite_id>.png)", images, 200)
+        return utils.return_json(False, "No images found!", None, 500)
     except psycopg2.errors:
-        return return_json(False, "Error attempting to return all images", None, 500)
+        return utils.return_json(False, "Error attempting to return all images", None, 500)
 
 
 if __name__ == "__main__":
