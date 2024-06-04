@@ -2,14 +2,15 @@
 
 - [ ] *section*    description
 
+- [ ] *api*        handle `track-satellite` empty request to return satellite objects not just satellite names
 - [ ] *api/db*     add data to requests and images
 - [ ] *api/db*     add data to satellites (lat, long, velo, altitude)
 - [ ] *api/db*     use UUIDs
+- [ ] *dashboard*  auto update dashboard pages every x amount of time
+- [ ] *dashboard*  home dashboard should be favorited components from other dashboards
+- [ ] *dashboard*  implement toast system
+- [ ] *dashboard*  move components in modules
 - [ ] *env*        variable for dev/prod
-- [ ] *frontend*   home dashboard should be favorited components from other dashboards
-- [ ] *frontend*   integrate api into dashboard (be able to make api calls from ui)
-- [ ] *frontend*   integreate communication with db (see data from db in ui)
-- [ ] *frontend*   move components in modules
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        ensure compatibility with postman
@@ -20,14 +21,16 @@
 - [X] *api-feat*   add tracked satellite to db
 - [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api-feat*   request image of a tracked satellite, store these requests
+- [X] *dashboard*  create mvp react image
+- [X] *dashboard*  hot-reload for react dev
+- [X] *dashboard*  integrate api into dashboard (be able to make api calls from ui)
+- [X] *dashboard*  integrate communication with db (see data from db in ui)
 - [X] *database*   create/init necessary tables
 - [X] *docker*     get default docker containers spun up
 - [X] *docker*     write build script
 - [X] *docs*       create/organize docs from given materials
 - [X] *docs*       update URLs in [usage](/docs/USAGE.md)
 - [X] *docs*       update usage with build script
-- [X] *frontend*   create mvp react image
-- [X] *frontend*   hot-reload for react dev
 - [X] *general*    figure out to return images
 - [X] *general*    figure out to store images
 - [X] *mcs-feat*   mechanism to intermittely "contact" satellite

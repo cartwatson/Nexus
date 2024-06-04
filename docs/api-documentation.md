@@ -22,7 +22,8 @@ Request types: `POST/PUT`, `GET`
 Expected Parameters:
 - `id`
     - id of satellite to track
-    - if not provided, a list of satellites will be returned, this should be a GET request
+    - if not provided, a list of satellites objects will be returned
+        - this should be a GET request
 
 ## Create Request for Image of Satellite
 
