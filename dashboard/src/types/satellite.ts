@@ -1,6 +1,7 @@
 export interface Satellite {
   id: string; //UUID
   name: string;
+  // type: string;
   altitude: number;
   velocity: number;
   // latitude: number;

@@ -6,7 +6,7 @@ import noImageFound from '../../../assets/no-image-found.png'
 const SatelliteCard: React.FC<SatelliteCardProps> = ({ satellite, onRequestImage }) => {
   return (
     <Card
-      title={satellite.name}
+      title={satellite.name || satellite.id || "Unknown"}
       style={{ width: 300, margin: 16, flex: '0 0 300px', minHeight: 400 }}
       actions={[
         <Button key="request" onClick={() => onRequestImage(satellite.id)}>Request Image</Button>
@@ -19,8 +19,8 @@ const SatelliteCard: React.FC<SatelliteCardProps> = ({ satellite, onRequestImage
         fallback={noImageFound}
       />
       <p>ID: {satellite.id}</p>
-      <p>Altitude: {satellite.altitude} km</p>
-      <p>Velocity: {satellite.velocity} km/h</p>
+      <p>Altitude: {satellite.altitude !== null ? `${satellite.altitude} km` : "Unknown"}</p>
+      <p>Velocity: {satellite.velocity !== null ? `${satellite.velocity} km/h` : "Unknown"}</p>
     </Card>
   );
 };

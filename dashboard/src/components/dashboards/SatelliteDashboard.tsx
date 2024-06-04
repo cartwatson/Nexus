@@ -12,19 +12,18 @@ const SatelliteTrackingDashboard: React.FC = () => {
     const fetchSatellites = async () => {
       setLoading(true);
       try {
-        // Example: Fetch satellites from an API
-        // const response = await fetch('api/satellites');
-        // const data = await response.json();
-        // setSatellites(data);
+        // query api
+        const response = await fetch('http://localhost:5000/track-satellite');
+        const data = await response.json();
 
-        // Example: Mock data
-        const mockSatellites: Satellite[] = [
-          { id: "1", name: 'Satellite 1', altitude: 500, velocity: 10000 },
-          { id: "2", name: 'Satellite 2', altitude: 600, velocity: 11000 },
-          // Add more mock satellites as needed
-        ];
-        setSatellites(mockSatellites);
+        // validate data
+        if (data.Success && Array.isArray(data.Data)) {
+          setSatellites(data.Data);
+        } else {
+          console.log("Received data is not formatted correct.", data);
+        }
         setLoading(false);
+
       } catch (error) {
         console.error('Error fetching satellites:', error);
         setLoading(false);
@@ -34,9 +33,18 @@ const SatelliteTrackingDashboard: React.FC = () => {
     fetchSatellites();
   }, []);
 
-  const handleRequestImage = (id: string) => {
+  const handleRequestImage = async (id: string) => {
     console.log('Requesting image for Satellite ID:', id);
-    // TODO: Add logic to request an image here
+    try {
+      const response = await fetch(`http://localhost:5000/request-image?id=${id}`);
+      console.log(response);
+      const data = await response.json();
+      if (data.Success) {
+        // TODO: Send toast 
+      }
+    } catch (error) {
+      console.error(`Error requesting image of satellite with name ${id}:`, error);
+    }
   };
 
   return (
@@ -50,7 +58,7 @@ const SatelliteTrackingDashboard: React.FC = () => {
             <SatelliteCard 
               key={satellite.id}
               satellite={satellite}
-              onRequestImage={handleRequestImage}
+              onRequestImage={() => handleRequestImage(satellite.id)}
             />
           ))}
         </div>
