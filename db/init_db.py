@@ -15,7 +15,10 @@ def main():
     # create table for satellites
     cur.execute(
         """CREATE TABLE IF NOT EXISTS satellites (
-        id VARCHAR(255) PRIMARY KEY
+        id VARCHAR(255) PRIMARY KEY,
+        name VARCHAR(255),
+        altitude NUMERIC(100),
+        velocity NUMERIC(100)
         );
         """
     )
