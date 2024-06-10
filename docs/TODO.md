@@ -2,6 +2,7 @@
 
 - [ ] *section*    description
 
+- [ ] *api*        enforce request type
 - [ ] *api/db*     add data to requests and images tables
 - [ ] *api/db*     use UUIDs
 - [ ] *dashboard*  auto update dashboard pages every x amount of time
@@ -9,9 +10,17 @@
 - [ ] *dashboard*  implement toast system
 - [ ] *dashboard*  move components in modules
 - [ ] *dashboard*  satellitedash doesn't have info when no satellites are being tracked
+- [ ] *db*         better starting script to init tables
+- [ ] *droid*      dynamic port allocation for multiple satellites
+- [ ] *droid*      fix image naming
 - [ ] *env*        variable for dev/prod
+- [ ] *mcs*        ability to add droids dynamically
+- [ ] *mcs*        handle multiple droids
+- [ ] *mcs/db*     priority on requests for images
+- [ ] *mcs/droid*  fix sleep timer, put on satellite instead of mcs
 - [ ] *testing*    develop testing suite for entire stack
 - [ ] *tools*      fix issues detecting errors in db init stage of build and run script
+- [ ] *tools*    automate creation of pgadmin server
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        disallow bad satellite names
