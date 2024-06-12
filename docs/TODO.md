@@ -11,6 +11,7 @@
 - [ ] *dashboard*  move components in modules
 - [ ] *dashboard*  satellitedash doesn't have info when no satellites are being tracked
 - [ ] *db*         better starting script to init tables
+- [ ] *docs*       update USAGE.md with dashboard instructions
 - [ ] *droid*      dynamic port allocation for multiple satellites
 - [ ] *droid*      fix image naming
 - [ ] *env*        variable for dev/prod
@@ -19,6 +20,7 @@
 - [ ] *mcs/db*     priority on requests for images
 - [ ] *mcs/droid*  fix sleep timer, put on satellite instead of mcs
 - [ ] *testing*    develop testing suite for entire stack
+- [ ] *tools*      don't re-init db in `build-and-run.sh` if it already exists
 - [ ] *tools*      fix issues detecting errors in db init stage of build and run script
 - [ ] *tools*    automate creation of pgadmin server
 - [X] *api*        add docker image to docker compose
