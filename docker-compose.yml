@@ -6,20 +6,25 @@ services:
     build:
       context: ./dashboard
     ports:
-      - "3000:3000"
+      - "${DASHBOARD_PORT}:3000"
     # NOTE: hot reload - remove before prod
     volumes:
       - ./dashboard:/app
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-
+   
   api:
     image: "api"
     build:
       context: ./api
+    environment: 
+        POSTGRES_DB: ${PG_NAME}
+        POSTGRES_USER: ${PG_USER}
+        POSTGRES_PASSWORD: ${PG_PASS}
+        POSTGRES_PORT: ${PG_PORT}
     ports:
-      - "5000:5000"
+      - "${API_PORT}:5000"
     depends_on:
       - pg
 
@@ -28,12 +33,17 @@ services:
     build:
       context: ./satellite
     ports:
-      - "5050:5050"
+      - "${DROID_PORT}:5050"
 
   mcs:
     image: "mcs"
     build: 
       context: ./mcs
+    environment: 
+        POSTGRES_DB: ${PG_NAME}
+        POSTGRES_USER: ${PG_USER}
+        POSTGRES_PASSWORD: ${PG_PASS}
+        POSTGRES_PORT: ${PG_PORT}
     depends_on:
       - pg
 
@@ -41,9 +51,9 @@ services:
     image: postgres:14.3-alpine
     env_file: .env
     environment: 
+        POSTGRES_DB: ${PG_NAME}
         POSTGRES_USER: ${PG_USER}
         POSTGRES_PASSWORD: ${PG_PASS}
-        POSTGRES_DB: ${PG_NAME}
         POSTGRES_PORT: ${PG_PORT}
     ports:
       - "${PG_PORT}:5432"
@@ -55,7 +65,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     environment: 
-        PGADMIN_DEFAULT_EMAIL: ${PG_USER}@takehome.com
+        PGADMIN_DEFAULT_EMAIL: ${PG_USER}@nexus.com
         PGADMIN_DEFAULT_PASSWORD: ${PG_PASS}
     ports: 
-        - "5001:80"
+        - "${PGADMIN_PORT}:80"

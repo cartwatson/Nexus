@@ -11,18 +11,23 @@
 - [ ] *dashboard*  move components in modules
 - [ ] *dashboard*  satellitedash doesn't have info when no satellites are being tracked
 - [ ] *db*         better starting script to init tables
+- [ ] *docker*     dynamic port allocation for all containers
+- [ ] *docker*     use release/debug dockerfiles
 - [ ] *docs*       update USAGE.md with dashboard instructions
 - [ ] *droid*      dynamic port allocation for multiple satellites
 - [ ] *droid*      fix image naming
 - [ ] *env*        variable for dev/prod
 - [ ] *mcs*        ability to add droids dynamically
 - [ ] *mcs*        handle multiple droids
+- [ ] *mcs*        open port on mcs, close droid ports. make droids contact mcs
 - [ ] *mcs/db*     priority on requests for images
 - [ ] *mcs/droid*  fix sleep timer, put on satellite instead of mcs
 - [ ] *testing*    develop testing suite for entire stack
+- [ ] *tools*      automate creation of pgadmin server
 - [ ] *tools*      don't re-init db in `build-and-run.sh` if it already exists
+- [ ] *tools*      figure out & fix why docker creates \<none\>:\<none\>
 - [ ] *tools*      fix issues detecting errors in db init stage of build and run script
-- [ ] *tools*    automate creation of pgadmin server
+- [ ] *tools*      flags in `build-and-run.sh` for test
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        disallow bad satellite names
@@ -36,6 +41,7 @@
 - [X] *api-feat*   get images of tracked satellite take by DROID
 - [X] *api-feat*   request image of a tracked satellite, store these requests
 - [X] *api/db*     add data to satellites (lat, long, velo, altitude, type, orbit type)
+- [X] *api/mcs*    pass through docker variables for PG connection
 - [X] *dashboard*  create mvp react image
 - [X] *dashboard*  hot-reload for react dev
 - [X] *dashboard*  integrate api into dashboard (be able to make api calls from ui)

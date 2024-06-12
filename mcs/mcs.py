@@ -1,3 +1,4 @@
+import os
 import time
 import json
 import random
@@ -81,10 +82,10 @@ if __name__ == "__main__":
         try:
             conn = psycopg2.connect(
                 host="pg",
-                dbname="takehome",
-                user="takehome",
-                password="takehome",
-                port="5432",
+                dbname=os.environ['POSTGRES_DB'],
+                user=os.environ['POSTGRES_USER'],
+                password=os.environ['POSTGRES_PASSWORD'],
+                port=os.environ['POSTGRES_PORT'],
             )
             print("connection established")
             connected = True
