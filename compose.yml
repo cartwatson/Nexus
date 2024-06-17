@@ -1,4 +1,4 @@
-version: '4.3'
+name: nexus
 
 services:
   dashboard:
@@ -8,10 +8,12 @@ services:
     ports:
       - "${DASHBOARD_PORT}:3000"
     # NOTE: hot reload - remove before prod
+    # leave api port variable
     volumes:
       - ./dashboard:/app
       - /app/node_modules
     environment:
+      - API_PORT=${API_PORT}
       - CHOKIDAR_USEPOLLING=true
    
   api:
