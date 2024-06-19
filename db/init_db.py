@@ -1,13 +1,14 @@
+import os
 import psycopg2
 
 
 def main():
     conn = psycopg2.connect(
         host="localhost",
-        dbname="takehome",
-        user="takehome",
-        password="takehome",
-        port="5432",
+        dbname=os.environ['POSTGRES_DB'],
+        user=os.environ['POSTGRES_USER'],
+        password=os.environ['POSTGRES_PASSWORD'],
+        port=os.environ['POSTGRES_PORT'],
     )
 
     cur = conn.cursor()
@@ -15,8 +16,8 @@ def main():
     # create table for satellites
     cur.execute(
         """CREATE TABLE IF NOT EXISTS satellites (
-        id VARCHAR(255) PRIMARY KEY,
-        name VARCHAR(255),
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE,
         altitude NUMERIC(100),
         velocity NUMERIC(100)
         );
@@ -26,24 +27,26 @@ def main():
     # create table for droids
     cur.execute(
         """CREATE TABLE IF NOT EXISTS droids (
-        id VARCHAR(255) PRIMARY KEY
+        id SMALLSERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE
         );
         """
     )
 
     # init DROID satellite
     cur.execute(
-        """INSERT INTO droids (id) VALUES
-        ('DROID')
+        """INSERT INTO droids (name) VALUES
+        ('DROID-001')
         """
     )
 
     # create table for images
     cur.execute(
         """CREATE TABLE IF NOT EXISTS images (
-        time_taken TIMESTAMP PRIMARY KEY,
-        taken_by VARCHAR(255),
-        id_sat VARCHAR(255),
+        id SERIAL PRIMARY KEY,
+        time_taken TIMESTAMP,
+        taken_by INT NOT NULL,
+        id_sat INT NOT NULL,
         img bytea,
         CONSTRAINT fk_satellites
             FOREIGN KEY (id_sat)
@@ -58,8 +61,9 @@ def main():
     # create table for image-requests
     cur.execute(
         """CREATE TABLE IF NOT EXISTS requests (
-        time TIMESTAMP PRIMARY KEY,
-        target_sat VARCHAR(255),
+        id SERIAL PRIMARY KEY,
+        time TIMESTAMP,
+        target_sat INT NOT NULL,
         pending BOOLEAN,
         fulfilled BOOLEAN,
         CONSTRAINT fk_satellites
