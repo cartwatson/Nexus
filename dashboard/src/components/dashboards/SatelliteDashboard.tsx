@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { List, Spin } from 'antd';
+import config from '../../config';
 import { Satellite } from '../../types/satellite';
 import SatelliteCard from './dash-components/SatelliteCard'; 
 
@@ -13,7 +14,7 @@ const SatelliteTrackingDashboard: React.FC = () => {
       setLoading(true);
       try {
         // query api
-        const response = await fetch('http://localhost:5000/track-satellite');
+        const response = await fetch(`${config.apiURL}/track-satellite`);
         const data = await response.json();
 
         // validate data
@@ -34,16 +35,16 @@ const SatelliteTrackingDashboard: React.FC = () => {
   }, []);
 
   const handleRequestImage = async (id: string) => {
-    console.log('Requesting image for Satellite ID:', id);
+    console.log('Requesting image for Satellite id:', id);
     try {
-      const response = await fetch(`http://localhost:5000/request-image?id=${id}`);
+      const response = await fetch(`${config.apiURL}/request-image?id=${id}`);
       console.log(response);
       const data = await response.json();
       if (data.Success) {
         // TODO: Send toast 
       }
     } catch (error) {
-      console.error(`Error requesting image of satellite with name ${id}:`, error);
+      console.error(`Error requesting image of satellite with id ${id}:`, error);
     }
   };
 
