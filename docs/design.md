@@ -24,6 +24,8 @@ The satellite was designed very similarly to the API.  It only needs two aspects
 
 ## Database
 
+All tables contain an auto-incrementing id and most feature a name, the name is solely user facing, the id handles everything behind the scenes.
+
 ### Requests
 
 The requests table uses the time the request was made as it's primary key.  This value is used to sort requests prior to being sent to the satellite.  The `target_sat` is used to determine which satellite to take a picture of, it has a foreign key relation to `satellites`. `pending` and `fulfilled` are used to determine the stage of the request.  It may be more human reable to use something like an enum in place of those two columns in the future, the original way would save on storage though in some cases, due to differences in bool/enum storage in SQL. 

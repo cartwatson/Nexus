@@ -2,10 +2,19 @@
 
 - [ ] *section*    description
 
+## Testing
+
+- [ ] rate limiting
+- [ ] api endpoints
+
+## General
+
+- [ ] *api*        add rate limiting
 - [ ] *api*        enforce request type
 - [ ] *api/db*     add data to requests and images tables
 - [ ] *api/db*     use UUIDs
 - [ ] *dashboard*  auto update dashboard pages every x amount of time
+- [ ] *dashboard*  different orderings of satellites/droids/images
 - [ ] *dashboard*  home dashboard should be favorited components from other dashboards
 - [ ] *dashboard*  implement toast system
 - [ ] *dashboard*  move components in modules
@@ -16,6 +25,7 @@
 - [ ] *docs*       update USAGE.md with dashboard instructions
 - [ ] *droid*      dynamic port allocation for multiple satellites
 - [ ] *droid*      fix image naming
+- [ ] *droid*      rewrite satellite in new language, aim for realism
 - [ ] *env*        variable for dev/prod
 - [ ] *mcs*        ability to add droids dynamically
 - [ ] *mcs*        handle multiple droids
@@ -24,10 +34,11 @@
 - [ ] *mcs/droid*  fix sleep timer, put on satellite instead of mcs
 - [ ] *testing*    develop testing suite for entire stack
 - [ ] *tools*      automate creation of pgadmin server
-- [ ] *tools*      don't re-init db in `build-and-run.sh` if it already exists
+- [ ] *tools*      don't re-init db in `tool/spin-up.sh` if it already exists
 - [ ] *tools*      figure out & fix why docker creates \<none\>:\<none\>
 - [ ] *tools*      fix issues detecting errors in db init stage of build and run script
-- [ ] *tools*      flags in `build-and-run.sh` for test
+- [ ] *tools*      flags in `tool/spin-up.sh` for test
+- [I] *docker*     fix dynamic port usage inside all containers
 - [X] *api*        add docker image to docker compose
 - [X] *api*        create docker image
 - [X] *api*        disallow bad satellite names

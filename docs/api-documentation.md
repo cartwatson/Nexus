@@ -2,8 +2,8 @@
 
 ## General Notes
 
-- API is hosted on port 5000 inside the container
-- To access API when run in docker `localhost:5000`
+- API is hosted on the port defined in the `.env` at root of the project, default is 4000
+- To access API when run in docker `localhost:4000`
 - Request type is not currently enforced
 - All return information is in the following form
 
@@ -20,8 +20,8 @@
 URL: `/track-satellite`  
 Request types: `POST/PUT`, `GET`  
 Expected Parameters:
-- `id`
-    - id of satellite to track
+- `name`
+    - name of satellite to track
     - if not provided, a list of satellites objects will be returned
         - this should be a GET request
 

@@ -4,7 +4,7 @@
 
 *Technically step 2 is not essential but it does add convenience*
 
-1. Run `./build-and-run.sh`
+1. Run `./tools/spin-up.sh`
     - Details below
 1. Connect to PG Admin and create pg server
     - Details below
@@ -24,14 +24,14 @@
 
 \* The ports will be changed if `docker-compose.yml` is modified
 
-## Build-and-Run.sh
+## tools/spin-up.sh
 
-*The build-and-run script does the following under the hood*  
+*The spin-up script does the following under the hood*  
 
 1. Run `docker compose up -d --build`
 2. Init `takehome` database
-    - `docker exec -it turion-take-home-pg-1 bash`
-    - runs [db/init.sh](../db/init.sh) as sudo on the `turion-take-home-pg-1` container
+    - `docker exec -it nexus-pg-1 bash`
+    - runs [db/init.sh](../db/init.sh) as sudo on the `nexus-pg-1` container
         - `apk add python3 py3-pip;`
         - `pip install -r app/requirements.txt;`
         - `python3 app/init_db.py;`
@@ -41,11 +41,7 @@
 
 ### Connect to PG Admin
 
-PG Admin runs on port 5001. To access, navigate to `localhost:5001` in a web browser. The username and password are set in `docker-compose.yml` based on the environment variables.  
-
-- The defaults are:
-    - Username: takehome@takehome.com
-    - Password: takehome
+PG Admin runs on the port defined in `.env`. To access, navigate to `localhost:<port>` in a web browser. The username and password are set in `docker-compose.yml` based on the variables in `.env`.  
 
 ### Create Server
 
@@ -54,10 +50,9 @@ PG Admin runs on port 5001. To access, navigate to `localhost:5001` in a web bro
 1. Navigate to PG admin
 1. Click on `Add New Server`
 1. In the `General` tab
-    - Name: starfire
+    - Name: nexus
 1. In the `Connection` tab
     - Hostname: pg
-    - Port: 5432
-    - Username: takehome
-    - Password: takehome
-
+    - Port: `.env PG_PORT`
+    - Username: `.env PG_USER`
+    - Password: `.env PG_PASS`
