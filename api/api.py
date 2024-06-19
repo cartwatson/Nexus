@@ -25,29 +25,29 @@ def api_status():
 def add_tracked_satellite():
     """Add tracked satellite to database"""
 
-    sat_id = request.args.get('id')
+    sat_name = request.args.get('name')
 
-    if sat_id is not None:
+    if sat_name is not None:
         # validate name further
-        valid_id, message = utils.valid_satellite_name(sat_id)
+        valid_id, message = utils.valid_satellite_name(sat_name)
         if not valid_id:
-            return utils.return_json(False, f"{sat_id} is an invalid name! {message}", None, 500)
+            return utils.return_json(False, f"{sat_name} is an invalid name! {message}", None, 500)
             
 
         # valid param given, attempt to track satellite
-        sat_id = sat_id.lower()
+        sat_name = sat_name.lower()
         try:
             cur.execute(
-                f"""INSERT INTO satellites (id) VALUES
-                ('{sat_id}')
+                f"""INSERT INTO satellites (name) VALUES
+                ('{sat_name}')
                 """
             )
         except psycopg2.errors.UniqueViolation:
-            return utils.return_json(False, f"Already tracking {sat_id}!", None, 500)
+            return utils.return_json(False, f"Already tracking {sat_name}!", None, 500)
         except psycopg2.errors:
-            return utils.return_json(False, f"Error occured while attempting to add {sat_id} as tracked in database!", None, 500)
+            return utils.return_json(False, f"Error occured while attempting to add {sat_name} as tracked in database!", None, 500)
 
-        return utils.return_json(True, f"Now tracking {sat_id}", None, 201)
+        return utils.return_json(True, f"Now tracking {sat_name}", None, 201)
 
     # if no URL params provided, return list of all tracked satellites
     try:
@@ -70,6 +70,7 @@ def request_image_of_satellite():
     if sat_id is None:
         return utils.return_json(False, "No id provided!", None, 400)
 
+    # NOTE/TODO: this may need to be changed so id & name work properly
     try:
         cur.execute(
             f"""INSERT INTO requests (target_sat, time, fulfilled, pending) VALUES
@@ -114,14 +115,15 @@ def get_images_from_droid():
     """get images of a tracked satellite taken by DROID"""
 
     # get key-value URL params
-    sat_id = request.args.get('id')
+    sat_name = request.args.get('name')
     droid_id = request.args.get('droid')
 
-    if sat_id is not None:
+    if sat_name is not None:
         if droid_id is not None:
-            return get_image(sat_id, taken_by=droid_id)
-        return get_image(sat_id, taken_by="DROID")
-    # if sat_id and droid_id not provided return all images
+            return get_image(sat_name, taken_by=droid_id)
+        return get_image(sat_name, taken_by="DROID")
+
+    # if sat_name and droid_id not provided return all images
     try:
         cur.execute("SELECT id FROM satellites")
         satellites = cur.fetchall()
