@@ -2,6 +2,22 @@
 
 *Note: I may reference the docker container "satellite" as "droid", this is to make a distinction between the satellite taking photos (droid in this case), and the satellite(s) being tracked*  
 
+## General Design
+
+```
+                         ┌────────────┐                       
+                         │            │                       
+                         │  PGADMIN   │ ┌────────┐ ┌────────┐ 
+                         │            │ │ SAT-01 │ │ SAT-02 │ 
+                         └─────┬─▲────┘ └──┬──▲──┘ └──┬──▲──┘ 
+                               │ │         │  │       │  │    
+┌─────────────┐  ┌───────┐  ┌──▼─┴─┐  ┌────▼──┴───────▼──┴───┐
+│             ◄──┤       ◄──┤      ◄──┤                      │
+│  DASHBOARD  │  │  API  │  │  DB  │  │  GROUND CONTROL/MCS  │
+│             ├──►       ├──►      ├──►                      │
+└─────────────┘  └───────┘  └──────┘  └──────────────────────┘
+```
+
 ## API
 
 The API was designed in a manner such that all functions/URLs should have similar syntax and results. Additionally, the URL should be useful for both POST/PUT and GET requests, query parameters determine how requests get routed.  
