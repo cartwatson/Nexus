@@ -2,16 +2,14 @@
 
 *Note: I may reference the docker container "satellite" as "droid", this is to make a distinction between the satellite taking photos (droid in this case), and the satellite(s) being tracked*  
 
-## General Design
+## System Design
 
 ```
-                         ┌────────────┐                       
-                         │            │                       
-                         │  PGADMIN   │ ┌────────┐ ┌────────┐ 
-                         │            │ │ SAT-01 │ │ SAT-02 │ 
-                         └─────┬─▲────┘ └──┬──▲──┘ └──┬──▲──┘ 
-                               │ │         │  │       │  │    
-┌─────────────┐  ┌───────┐  ┌──▼─┴─┐  ┌────▼──┴───────▼──┴───┐
+                          ┌──────────┐  ┌────────┐ ┌────────┐ 
+                          │ PG ADMIN │  │ SAT-01 │ │ SAT-02 │ 
+                          └───┬──▲───┘  └──┬──▲──┘ └──┬──▲──┘ 
+                              │  │         │  │       │  │    
+┌─────────────┐  ┌───────┐  ┌─▼──┴─┐  ┌────▼──┴───────▼──┴───┐
 │             ◄──┤       ◄──┤      ◄──┤                      │
 │  DASHBOARD  │  │  API  │  │  DB  │  │  GROUND CONTROL/MCS  │
 │             ├──►       ├──►      ├──►                      │
